@@ -2,6 +2,7 @@ package toolkit
 
 import (
 	"math/rand"
+	"net/http"
 	"time"
 )
 
@@ -19314,7 +19315,11 @@ var userAgentList = []string{`Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/53
 }
 
 // RandomUserAgent : 随机返回一个浏览器的用户标识
-func RandomUserAgent() string {
+func RandomUserAgent() http.Header {
 	rand.Seed(time.Now().UnixNano())
-	return userAgentList[rand.Intn(len(userAgentList))]
+	userAgent := userAgentList[rand.Intn(len(userAgentList))]
+
+	return map[string][]string{
+		"User-Agent": {userAgent},
+	}
 }
