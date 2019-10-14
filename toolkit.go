@@ -77,3 +77,12 @@ func JSONToStruct(jsonBlob string, dstStruct StructJSON) {
 	formattedJSON := FormatJSON(jsonBlob)
 	Unmarshall([]byte(formattedJSON), dstStruct)
 }
+
+// =====================================ERROR
+
+// CheckErr :
+func CheckErr(e error) {
+	if e != nil {
+		fmt.Println(e)
+	}
+}
