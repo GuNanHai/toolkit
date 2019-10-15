@@ -89,7 +89,7 @@ func CheckErr(e error) {
 	}
 }
 
-// GetPkgPath : 获取从github下载到本地的指定名称包的路径
+// GetPkgPath : 获取从github下载到本地的指定名称的package的路径
 func GetPkgPath(pkgName string) string {
 	pkgPath := ""
 	fileSelf, err := os.Open("main.go")
