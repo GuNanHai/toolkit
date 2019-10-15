@@ -3,6 +3,8 @@ package toolkit
 import (
 	"encoding/json"
 	"fmt"
+	"os"
+	"path"
 	"reflect"
 	"regexp"
 	"strconv"
@@ -85,4 +87,25 @@ func CheckErr(e error) {
 	if e != nil {
 		fmt.Println(e)
 	}
+}
+
+// GetPkgPath : 获取从github下载到本地的指定名称包的路径
+func GetPkgPath(pkgName string) string {
+	pkgPath := ""
+	fileSelf, err := os.Open("main.go")
+	CheckErr(err)
+	b := make([]byte, 90000)
+	fileSelf.Read(b)
+
+	re := regexp.MustCompile(`import\s+?\((.|\n)*?\)`)
+	packageDeclarationTextList := strings.Split(re.FindString(string(b)), "\n")
+
+	for _, each := range packageDeclarationTextList {
+		if strings.Contains(each, pkgName) {
+			each = strings.TrimSpace(each)
+			each = strings.Trim(each, `"`)
+			pkgPath = os.Getenv("GOPATH") + string(os.PathSeparator) + "src" + string(os.PathSeparator) + path.Dir(each) + string(os.PathSeparator) + pkgName
+		}
+	}
+	return pkgPath
 }
