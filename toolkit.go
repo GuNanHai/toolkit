@@ -86,6 +86,7 @@ func JSONToStruct(jsonBlob string, dstStruct StructJSON) {
 func CheckErr(e error) {
 	if e != nil {
 		fmt.Println(e)
+		fmt.Println("----------------------------------")
 	}
 }
 
