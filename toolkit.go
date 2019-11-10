@@ -110,3 +110,10 @@ func GetPkgPath(pkgName string) string {
 	}
 	return pkgPath
 }
+
+//ReadStringListFromJSON :读取json文件中的字符串列表
+func ReadStringListFromJSON(d []byte) ([]string, error) {
+	var result []string
+	err := json.Unmarshal(d, &result)
+	return result, err
+}
